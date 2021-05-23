@@ -76,7 +76,7 @@ namespace ege
                     m2 = m1;
                     m1 = number;
                 }
-                else if (number > m2 && number <= m1)
+                if (number > m2 && number <= m1) // why? :(
                 {
                     m2 = number;
                 }
