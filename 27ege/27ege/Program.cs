@@ -301,18 +301,118 @@ namespace _27ege
             }
             if (maxSum%3==1)
             {
-                maxSum -= minDiff1;//< 2 * minDiff2 ? minDiff1 : minDiff2;
+                maxSum -= minDiff1;
             }
             else if (maxSum%3==2)
             {
-                maxSum -= minDiff2;//< 2 * minDiff1 ? minDiff2 : minDiff1;
+                maxSum -= minDiff2;
             }
             Console.WriteLine(maxSum);
             file.Close();
         }
+        static void Sorting(ref int[] mas)
+        {
+            for (int i = 0; i < mas.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mas.Length; j++)
+                {
+                    if (mas[i] < mas[j])
+                    {
+                        int temp = mas[i];
+                        mas[i] = mas[j];
+                        mas[j] = temp;
+                    }
+                }
+            }
+        }
+        static void Task28129()
+        {
+            var file = new StreamReader("27.txt");
+
+            int amount = int.Parse(file.ReadLine());
+            int[] isDivisibleBy7 = new int[160];
+            int[] isntDivisibleBy7 = new int[160];
+
+            for (int i = 0; i < 160; i++)
+            {
+                isDivisibleBy7[i] = 0;
+                isntDivisibleBy7[i] = 0;
+            }
+
+            for (int i = 0; i < amount; i++)
+            {
+                int a = int.Parse(file.ReadLine());
+
+                if (a % 7 == 0 && a > isDivisibleBy7[a % 160])
+                {
+                    isDivisibleBy7[a % 160] = a;
+                }
+                else if(a % 7 != 0 && a > isntDivisibleBy7[a % 160])
+                {
+                    isntDivisibleBy7[a % 160] = a;
+                }
+            }
+
+            Sorting(ref isDivisibleBy7);
+            Sorting(ref isntDivisibleBy7);
+
+            int[] first = { isDivisibleBy7[0], isDivisibleBy7[0], isDivisibleBy7[0], isDivisibleBy7[1], isDivisibleBy7[1] };
+            int[] second = { isDivisibleBy7[1], isntDivisibleBy7[0], isntDivisibleBy7[1], isntDivisibleBy7[0], isntDivisibleBy7[1] };
+
+            int l = 0;
+            int r = 0;
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (first[i] != 0 && second[i] != 0 && first[i] + second[i] > l + r)
+                {
+                    l = first[i];
+                    r = second[i];
+                }
+            }
+            Console.WriteLine(l + " " + r);
+
+            file.Close();
+        }
+        static void Task28130()
+        {
+            var file = new StreamReader("27.txt");
+
+            int length = int.Parse(file.ReadLine());
+            int[] moreThan50 = new int[80];
+            int[] lessThan50 = new int[80];
+
+            for (int i = 0; i < 80; i++)
+            {
+                moreThan50[i] = 0;
+                lessThan50[i] = 0;
+            }
+            for (int i = 0; i < length; i++)
+            {
+                int a = int.Parse(file.ReadLine());
+                int mod = a % 80;
+                if (a>50)
+                {
+                    moreThan50[mod]++;
+                }
+                else
+                {
+                    lessThan50[mod]++;
+                }
+            }
+            int sum = 0;
+            for (int i = 1; i < 40; i++)
+            {
+                sum += moreThan50[i] * moreThan50[80 - i] + lessThan50[80 - i] * moreThan50[i] + lessThan50[i] * moreThan50[80 - i];
+            }
+            sum += moreThan50[0] * (moreThan50[0] - 1) / 2 + moreThan50[0] * lessThan50[0] + moreThan50[40] * (moreThan50[40] - 1) / 2 + moreThan50[40] * lessThan50[40];
+
+            Console.WriteLine(sum);
+            file.Close();
+        }
         static void Main(string[] args)
         {
-            Task29765();
+            Task28130();
         }
     }
 }
