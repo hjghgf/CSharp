@@ -55,7 +55,6 @@ namespace _27ege
             Console.WriteLine(maxCmp);
             file.Close();
         }
-
         static void Task27424()
         {
             var file = new StreamReader("27.txt");
@@ -408,6 +407,33 @@ namespace _27ege
             sum += moreThan50[0] * (moreThan50[0] - 1) / 2 + moreThan50[0] * lessThan50[0] + moreThan50[40] * (moreThan50[40] - 1) / 2 + moreThan50[40] * lessThan50[40];
 
             Console.WriteLine(sum);
+            file.Close();
+        }
+        static void Task2671()
+        {
+            var file = new StreamReader("27.txt");
+
+            int length = int.Parse(Console.ReadLine());
+            int diffMaxMin = 0;
+            int diffMaxMed = 0;
+            int sum = 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                string[] inp = file.ReadLine().Split("  ");
+                int a = int.Parse(inp[0]);
+                int b = int.Parse(inp[1]);
+                int c = int.Parse(inp[2]);
+
+                int[] mas = { a, b, c };
+                Sorting(ref mas);
+
+                sum += mas[0];
+                diffMaxMed = mas[0] - mas[1];
+                diffMaxMin = mas[0] - mas[2];
+            }
+
+
             file.Close();
         }
         static void Main(string[] args)
