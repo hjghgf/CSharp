@@ -414,8 +414,15 @@ namespace _27ege
             var file = new StreamReader("27.txt");
 
             int length = int.Parse(Console.ReadLine());
-            int diffMaxMin = 0;
-            int diffMaxMed = 0;
+            int minDiff0 = 0;
+            int minDiff1 = 0;
+            int minDiff2 = 0;
+            int minDiff3 = 0;
+            int minDiff4 = 0;
+            int minDiff5 = 0;
+            int minDiff6 = 0;
+            int minDiff7 = 0;
+
             int sum = 0;
 
             for (int i = 0; i < length; i++)
@@ -429,8 +436,6 @@ namespace _27ege
                 Sorting(ref mas);
 
                 sum += mas[0];
-                diffMaxMed = mas[0] - mas[1];
-                diffMaxMin = mas[0] - mas[2];
             }
 
 
