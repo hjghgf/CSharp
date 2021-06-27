@@ -278,35 +278,61 @@ namespace _27ege
 
             int amount = int.Parse(file.ReadLine());
             int maxSum = 0;
-            int minDiff1 = 10001;
-            int minDiff2 = 10001;
+            int[,] minDiffs = new int[3, 3];
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    minDiffs[i, j] = 10001;
+                }
+            }
+
+            int minDiff1_1 = 10001;
+            int minDiff1_2 = 10001;
+            int minDiff2_1 = 10001;
+            int minDiff2_2 = 10001;
 
             for (int i = 0; i < amount; i++)
             {
-                string[] inp = file.ReadLine().Split("  ");
+                string[] inp = file.ReadLine().Split(" ");
                 int a = int.Parse(inp[0]);
                 int b = int.Parse(inp[1]);
 
                 maxSum += a > b ? a : b;
                 int diff = Math.Abs(a - b);
-                if (diff < minDiff1 && diff % 3 ==1)
+                int r = diff % 3;
+
+                if (r == 0)
                 {
-                    minDiff1 = diff;
+                    continue;
                 }
-                else if (diff < minDiff1 && diff % 3 == 2)
+
+                if (diff < minDiffs[r, 2] && diff >= minDiffs[r, 1])
                 {
-                    minDiff2 = diff;
+                    minDiffs[r, 2] = diff;
+                }
+                else if (diff < minDiffs[r, 1])
+                {
+                    minDiffs[r, 2] = minDiffs[r, 1];
+                    minDiffs[r, 1] = diff;
                 }
             }
-            if (maxSum%3==1)
+
+            int remainder = maxSum % 3;
+
+            if (remainder == 0)
             {
-                maxSum -= minDiff1;
+                Console.WriteLine(maxSum);
+
+                return;
             }
-            else if (maxSum%3==2)
-            {
-                maxSum -= minDiff2;
-            }
+
+            int firstWay = minDiffs[remainder, 1];
+            int secondWay = minDiffs[3 - remainder, 1] + minDiffs[3 - remainder, 2];
+            maxSum -= firstWay < secondWay ? firstWay : secondWay;
+
             Console.WriteLine(maxSum);
+
             file.Close();
         }
         static void Sorting(ref int[] mas)
@@ -413,37 +439,109 @@ namespace _27ege
         {
             var file = new StreamReader("27.txt");
 
-            int length = int.Parse(Console.ReadLine());
-            int minDiff0 = 0;
-            int minDiff1 = 0;
-            int minDiff2 = 0;
-            int minDiff3 = 0;
-            int minDiff4 = 0;
-            int minDiff5 = 0;
-            int minDiff6 = 0;
-            int minDiff7 = 0;
+            int length = int.Parse(file.ReadLine());
+            int mod = 8;
+            int[] sum = new int[mod];
+            for (int i = 0; i < mod; i++)
+            {
+                sum[i] = 0;
+            }
 
-            int sum = 0;
+            string[] firstInp = file.ReadLine().Split(" ");
+            
+            int amount = 3;
+            int[] firstMas = new int[amount];
+            for (int i = 0; i < amount; i++)
+            {
+                firstMas[i] = int.Parse(firstInp[i]);
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                int r = firstMas[i] % mod;
+                if (firstMas[i] > sum[r])
+                {
+                    sum[r] = firstMas[i];
+                }
+            }
+
+            for (int i = 1; i < length; i++)
+            {
+                string[] inp = file.ReadLine().Split(" ");
+                int[] mas = new int[amount];
+                for (int j = 0; j < amount; j++)
+                {
+                    mas[j] = int.Parse(inp[j]);
+                }
+                int[] newSum = new int[mod];
+                for (int j = 0; j < amount; j++)
+                {
+                    for (int k = 0; k < mod; k++)
+                    {
+                        if (sum[k] == 0)
+                        {
+                            continue;
+                        }
+
+                        int candidate = sum[k] + mas[j];
+                        int r = candidate % mod;
+
+                        if (candidate > newSum[r])
+                        {
+                            newSum[r] = candidate;
+                        }
+                    }
+                }
+                for (int j = 0; j < mod; j++)
+                {
+                    sum[j] = newSum[j];
+                    //Console.Write(sum[l] + " ");
+                }
+                //Console.WriteLine();
+            }
+            Console.WriteLine(sum[0]);
+            file.Close();
+        }
+        static void Task28131()
+        {
+            var file = new StreamReader("27.txt");
+
+            int length = int.Parse(file.ReadLine());
+            int L = 0;
+            int R = 0;
+
+            int[] mas = new int[120];
+            for (int i = 0; i < 120; i++)
+            {
+                mas[i] = 0;
+            }
 
             for (int i = 0; i < length; i++)
             {
-                string[] inp = file.ReadLine().Split("  ");
-                int a = int.Parse(inp[0]);
-                int b = int.Parse(inp[1]);
-                int c = int.Parse(inp[2]);
+                int r = int.Parse(file.ReadLine());
+                int mod = r % 120;
 
-                int[] mas = { a, b, c };
-                Sorting(ref mas);
+                int l = mas[(120 - mod) % 120];
 
-                sum += mas[0];
+                if (l != 0 && l > r && l + r > L + R)
+                {
+                    L = l;
+                    R = r;
+                }
+
+                if (r > mas[mod])
+                {
+                    mas[mod] = r;
+                }
             }
 
+            Console.WriteLine(L + " " + R);
 
             file.Close();
         }
         static void Main(string[] args)
         {
-            Task28130();
+            Task2671();
         }
     }
 }
