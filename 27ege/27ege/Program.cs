@@ -394,6 +394,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Task28130()
         {
             var file = new StreamReader("27.txt");
@@ -430,6 +431,7 @@ namespace _27ege
             Console.WriteLine(sum);
             file.Close();
         }
+
         static void Task2671()
         {
             var file = new StreamReader("27.txt");
@@ -497,6 +499,7 @@ namespace _27ege
             Console.WriteLine(sum[0]);
             file.Close();
         }
+
         static void Task28131()
         {
             var file = new StreamReader("27.txt");
@@ -534,6 +537,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Task12()
         {
             var file = new StreamReader("..\\..\\..\\27.txt");
@@ -588,6 +592,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Task33199()
         {
             var file = new StreamReader("..\\..\\..\\27.txt");
@@ -612,11 +617,13 @@ namespace _27ege
                 {
                     minDiff = input[2] - input[1];
                 }
-                else if (input[2] - input[0] < minDiff && (input[2] - input[0]) % 2 != 0)
+
+                if (input[2] - input[0] < minDiff && (input[2] - input[0]) % 2 != 0)
                 {
                     minDiff = input[2] - input[0];
                 }
             }
+
             if (sum1 % 2 != sum2 % 2)
             {
                 Console.WriteLine(sum3);
@@ -629,11 +636,357 @@ namespace _27ege
             {
                 Console.WriteLine("haha");
             }
+
             file.Close();
         }
+
+        static void Task35485()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int length = int.Parse(file.ReadLine());
+
+            int[,] max = new int[3, 3];
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    max[i, j] = 0;  
+                }
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                int a = int.Parse(file.ReadLine());
+                int mod = a % 3;
+                if (a > max[mod, 2])
+                {
+                    max[mod, 0] = max[mod, 1];
+                    max[mod, 1] = max[mod, 2];
+                    max[mod, 2] = a;
+                }
+                else if (a > max[mod, 1] && a <= max[mod, 2])
+                {
+                    max[mod, 0] = max[mod, 1];
+                    max[mod, 1] = a;
+                }
+                else if (a > max[mod, 0] && a <= max[mod, 1])
+                {
+                    max[mod, 0] = a;
+                }
+            }
+
+            int[] sum = { 0, 0, 0, 0 };
+            
+            for (int mod = 0; mod < 3; mod++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (max[mod, i] == 0)
+                    {
+                        sum[mod] = 0;
+                        break;
+                    }
+
+                    sum[mod] += max[mod, i];
+                }
+            }
+
+            for (int mod = 0; mod < 3; mod++)
+            {
+                if (max[mod, 2] == 0)
+                {
+                    sum[3] = 0;
+                    break;
+                }
+
+                sum[3] += max[mod, 2];
+            }
+
+            int maxSum = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                if (sum[i] > maxSum)
+                {
+                    maxSum = sum[i];
+                }
+            }
+
+            Console.Write(maxSum);
+            
+            file.Close();
+        }
+
+        static void Task36040()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int length = int.Parse(file.ReadLine());
+
+            long maxSum = 0;
+            int minDiff = 20001;
+
+            for (int i = 0; i < length; i++)
+            {
+                string[] inp = file.ReadLine().Split();
+                int[] arr = { int.Parse(inp[0]), int.Parse(inp[1]), int.Parse(inp[2]) };
+                Sorting(ref arr);
+
+                int diff21 = arr[2] - arr[1];
+                int diff20 = arr[2] - arr[0];
+
+                if (diff21 < minDiff && diff21 % 109 != 0)
+                {
+                    minDiff = diff21;
+                }
+
+                if (diff20 < minDiff && diff20 % 109 != 0)
+                {
+                    minDiff = diff20;
+                }
+
+                maxSum += arr[2];
+            }
+
+            if (maxSum % 109 != 0 )
+            {
+                Console.WriteLine(maxSum);
+            }
+            else if (minDiff != 20001)
+            {
+                Console.WriteLine(maxSum - minDiff);
+            }
+            else
+            {
+                Console.WriteLine("no solution ;(");
+            }
+
+            file.Close();
+
+        }
+
+        static void Task29673()
+        {
+            for (int num = 123456789; num < 223456789; num++)
+            {
+                int divider = 0;
+                double root1 = Math.Sqrt(num);
+                double root2 = Math.Floor(root1);
+                
+                if (root1 == root2)
+                {                       
+                    int count = 0;
+
+                    for (int i = 2; i < Math.Sqrt(num); i++)
+                    {
+                        if (num % i == 0)
+                        {
+                            count++;
+                            if (count > 1)
+                            {
+                                break;
+                            }
+
+                            divider = i;
+                        }
+                        
+                    }
+
+                    if (count == 1)
+                    {
+                        Console.WriteLine(num + " " + num / divider);
+                    }
+                }
+            }
+        }
+
+        static void Task36882()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int length = int.Parse(file.ReadLine());
+
+            int sum1 = 0;
+            int sum2 = 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                string[] inp = file.ReadLine().Split();
+                int a = int.Parse(inp[0]);
+                int b = int.Parse(inp[1]);
+
+                if (b % 2 != 0)
+                {
+                    sum1 += b > a ? b : a;
+                    sum2 += b < a ? b : a;
+                }
+            }
+
+            file.Close();
+        }
+
+        static void Task37162()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int length = int.Parse(file.ReadLine());
+
+            int mod = 89;
+            int sum = 0;
+            int[,] r = new int[mod, 2];
+            int maxSum = 0;
+            int minLength = 68001;
+
+            r[0, 0] = 0;
+            r[0, 1] = 0;
+
+            for (int i = 1; i < mod; i++)
+            {
+                r[i, 0] = -1;
+                r[i, 1] = 0;
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                int a = int.Parse(file.ReadLine());
+                
+                sum += a;
+                int rem = sum % mod;
+
+                if (r[rem, 0] == -1)
+                {
+                    r[rem, 0] = sum;
+                    r[rem, 1] = i + 1;
+                }
+                else
+                {
+                    int max = sum - r[rem, 0];
+                    int size = i + 1 - r[rem, 1];
+
+                    if (max > maxSum)
+                    {
+                        maxSum = max;
+                        minLength = size;
+                    }
+                    else if (maxSum == max)
+                    {
+                        if (size < minLength)
+                        {
+                            minLength = size;
+                        }
+                    }
+
+                }
+                    
+            }
+
+            Console.WriteLine(minLength + " " + maxSum);
+
+            file.Close();
+        }
+
+        static void Task9211()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int length = int.Parse(file.ReadLine());
+
+            int max3_1 = 0;
+            int max3_2 = 0;
+            int max1 = 0;
+            int max2 = 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                int a = int.Parse(file.ReadLine());
+                int rem = a % 3;
+                if (rem == 0)
+                {
+                    if (a >= max3_1)
+                    {
+                        max3_2 = max3_1;
+                        max3_2 = a;
+                    }
+                    else if (a >= max3_2 && a < max3_1)
+                    {
+                        max3_2 = a;
+                    }
+                }
+                if (rem == 1 && a > max1)
+                {
+                    max1 = a;
+                }
+                if (rem == 2 && a > max2)
+                {
+                    max2 = a;
+                }
+            }
+
+            int sum1 = max3_1 + max3_2;
+            int sum2 = max1 + max2;
+            int R = 1;
+
+            if (max3_1 != 0 && max3_2 != 0 && sum1 > sum2)
+            {
+                R = sum1;
+            }
+            else if (max1 != 0 && max2 != 0 && sum2 > sum1)
+            {
+                R = sum2;
+            }            
+            int r = int.Parse(file.ReadLine());
+
+            Console.Write("контрольное знчаение: " + r);
+
+            if (r == R)
+            {
+                Console.WriteLine("контроль пройден");
+            }
+            else
+            {
+                Console.WriteLine("контроль не пройден");
+            }
+
+            file.Close();
+
+        }
+
+        static void Task9662()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int length = int.Parse(file.ReadLine());
+
+            int max2 = 0;
+            int max13 = 0;
+            int max0 = 0;
+            int max = 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                int a = int.Parse(file.ReadLine());
+                int rem = a % 26;
+                if (rem == 2 && a > max2)
+                {
+                    max2 = a;
+                }
+                else if (rem == 13 && a > max13)
+                {
+                    max13 = a;
+                }
+                else if (rem == 0 && a > max0)
+                {
+                    max0 = a;
+                }
+                else if (a > max)
+                {
+                    max = a;
+                }
+            }
+
+            int res = max2 * max13 > max * max0 ? max2 * max13 : max * max0;
+            Console.WriteLine(res);
+
+            file.Close();
+        }
+
         static void Main(string[] args)
         {
-            Task33199();
+            Task9662();
         }
     }
 }
