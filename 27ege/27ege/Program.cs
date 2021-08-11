@@ -1462,9 +1462,56 @@ namespace _27ege
             file.Close();
         }
 
+        static void Task6906()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+
+            int n = int.Parse(file.ReadLine());
+
+            int maxX = 0;
+            int minX = int.MaxValue;
+            int maxPosY = 0;
+            int maxNegY = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                string[] inp = file.ReadLine().Split();
+                int x = int.Parse(inp[0]);
+                int y = int.Parse(inp[1]);
+                if (y == 0)
+                {
+                    if (x > maxX)
+                    {
+                        maxX = x;
+                    }
+                    else if (x < minX)
+                    {
+                        minX = x;
+                    }
+                }
+                else
+                {
+                    if (y > maxPosY)
+                    {
+                        maxPosY = y;
+                    }
+                    else if (y < maxNegY)
+                    {
+                        maxNegY = y;
+                    }
+                }
+            }
+
+            maxNegY = Math.Abs(maxNegY);
+
+            double s = (maxX - minX) * (maxPosY + maxNegY) / 2;
+            Console.WriteLine(s);
+
+            file.Close();
+        }
         static void Main(string[] args)
         {
-            Task5258();
+            Task6906();
             /*
             int mod = 4;
             int[] r = new int[mod];
