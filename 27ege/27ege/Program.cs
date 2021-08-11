@@ -55,6 +55,7 @@ namespace _27ege
             Console.WriteLine(maxCmp);
             file.Close();
         }
+
         static void Task27424()
         {
             var file = new StreamReader("27.txt");
@@ -91,6 +92,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Task27986()
         {
             var file = new StreamReader("27.txt");
@@ -123,6 +125,7 @@ namespace _27ege
             file.Close();
 
         }
+
         static void Task27989()
         {
             var file = new StreamReader("27.txt");
@@ -152,6 +155,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Task27991()
         {
             var file = new StreamReader("27.txt");
@@ -220,6 +224,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Task28128()
         {
             var file = new StreamReader("27.txt");
@@ -272,6 +277,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Task29765()
         {
             var file = new StreamReader("27.txt");
@@ -330,6 +336,7 @@ namespace _27ege
 
             file.Close();
         }
+
         static void Sorting(ref int[] mas)
         {
             for (int i = 0; i < mas.Length - 1; i++)
@@ -345,6 +352,7 @@ namespace _27ege
                 }
             }
         }
+
         static void Task28129()
         {
             var file = new StreamReader("27.txt");
@@ -953,24 +961,34 @@ namespace _27ege
 
             int max2 = 0;
             int max13 = 0;
-            int max0 = 0;
+            int max0_1 = 0;
             int max = 0;
+            int max0_2 = 0;
 
             for (int i = 0; i < length; i++)
             {
                 int a = int.Parse(file.ReadLine());
-                int rem = a % 26;
-                if (rem == 2 && a > max2)
+
+                if (a % 2 == 0 && a % 13 != 0 && a > max2)
                 {
                     max2 = a;
                 }
-                else if (rem == 13 && a > max13)
+                else if (a % 13 == 0 && a % 2 != 0 && a > max13)
                 {
                     max13 = a;
                 }
-                else if (rem == 0 && a > max0)
+                else if (a%26 == 0)
                 {
-                    max0 = a;
+                    if (a >= max0_1)
+                    {
+                        max0_2 = max0_1;
+                        max0_2 = a;
+                    }
+                    else if (a >= max0_2 && a < max0_1)
+                    {
+                        max0_2 = a;
+                    }
+
                 }
                 else if (a > max)
                 {
@@ -978,15 +996,498 @@ namespace _27ege
                 }
             }
 
-            int res = max2 * max13 > max * max0 ? max2 * max13 : max * max0;
+            int[] prod = { max0_1 * max0_2, max0_1 * max, max0_1 * max13, max0_1 * max2, max13 * max2 };
+            Sorting(ref prod);
+
+            Console.WriteLine(prod[4]);
+
+            file.Close();
+        }
+
+        class Element
+        {
+            public int del19_1 = 0;
+            public int del19_2 = 0;
+            public int neDel19 = 0;
+        }
+
+        static void Task25963()
+        {
+            int n = int.Parse(Console.ReadLine());
+            Element[] max = new Element[2];
+
+            for (int i = 0; i < 2; i++)
+            {
+                max[i] = new Element();
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                int a = int.Parse(Console.ReadLine());
+                int rem = a % 2;
+
+                if (a % 19 == 0)
+                {
+                    if (a >= max[rem].del19_1)
+                    {
+                        max[rem].del19_2 = max[rem].del19_1;
+                        max[rem].del19_1 = a;
+                    }
+                    else if (a >= max[rem].del19_2 && a < max[rem].del19_1)
+                    {
+                        max[rem].del19_2 = a;
+                    }
+                }
+                else if (a > max[rem].neDel19)
+                {
+                    max[rem].neDel19 = a;
+                }
+            }
+
+            int[] sum1 = { max[0].del19_1, max[0].del19_1, max[1].del19_1, max[1].del19_1 };
+            int[] sum2 = { max[0].del19_2, max[0].neDel19, max[1].del19_2, max[1].neDel19 };
+
+            int maxSum = 0;
+            int k = 0;
+            int m = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int currentSum = sum1[i] + sum2[i];
+                if (currentSum > maxSum && sum1[i] * sum2[i] != 0)
+                {
+                    maxSum = currentSum;
+                    k = sum1[i];
+                    m = sum2[i];
+                }
+            }
+
+            Console.WriteLine(k + " " + m);
+        }
+
+        static void Task15812()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int amount23 = 0;
+            int amount2 = 0;
+            int amount3 = 0;
+            int amount0 = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                int a = int.Parse(Console.ReadLine());
+                if (a % 2 == 0 && a % 3 == 0)
+                {
+                    amount23++;
+                }
+                else if (a % 2 == 0 && a % 3 != 0)
+                {
+                    amount2++;
+                }
+                else if (a % 3 == 0 && a % 2 != 0)
+                {
+                    amount3++;
+                }
+                else
+                {
+                    amount0++;
+                }
+            }
+            int res = amount23 * amount3 + amount23 * amount0 + amount2 * amount3;
             Console.WriteLine(res);
+        }
+
+        static void Task15937()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            int max0 = 0; 
+            int max2 = 0; 
+            int max3 = 0; 
+            int max23 = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                int a = int.Parse(Console.ReadLine());
+                if (a % 2 == 0 && a % 3 == 0 && a > max23)
+                {
+                    max23 = a;
+                }
+                else if (a % 2 == 0 && a % 3 != 0 && a > max2)
+                {
+                    max2 = a;
+                }
+                else if (a % 3 == 0 && a % 2 != 0 && a > max3)
+                {
+                    max3 = a;
+                }
+                else if (a > max0)
+                {
+                    max0 = a;
+                }
+            }            
+            
+            int m1 = 0;
+            int m2 = 0;
+            int maxProd = 0;
+
+            int[] prod1 = { max23, max23, max3 };
+            int[] prod2 = { max0, max3, max2 };
+
+            for (int i = 0; i < 3; i++)
+            {
+                int currentProd = prod1[i] * prod2[i];
+                if(currentProd>maxProd)
+                {
+                    m1 = prod1[i];
+                    m2 = prod2[i];
+                }
+                
+            }
+
+            if (m1 * m2 != 0)
+            {
+                Console.WriteLine(m1 + " " + m2);
+            }
+            else
+            {
+                Console.WriteLine("0");
+            }
+        }
+
+        static void Task18729()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int[] rem = new int[117];
+
+            for (int i = 0; i < 117; i++)
+            {
+                rem[i] = 0;
+            }
+
+            int R = 0;
+            int L = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                int r = int.Parse(Console.ReadLine());
+                int remainder = r % 117;
+                int l = rem[(117 - remainder) % 117];
+
+                if (l != 0 && l > r && l + r > R + L)
+                {
+                    L = l;
+                    R = r;
+                }
+
+                if (r > rem[remainder])
+                {
+                    rem[remainder] = r;
+                }
+            }
+            Console.WriteLine(L + " " + R);
+        }
+
+        static void AnnoyingTask2()
+        {
+            int mod = 80;
+
+            int[] moreThan50 = new int[mod];
+            int[] lessOrEqualThan50 = new int[mod];
+
+            int res = (moreThan50[0] * (moreThan50[0] - 1)) / 2 + moreThan50[0] * lessOrEqualThan50[0];
+
+            for (int i = 1; i < mod / 2; i++)
+            {
+                res += moreThan50[i] * lessOrEqualThan50[mod - i] + moreThan50[i] * moreThan50[mod - i] + lessOrEqualThan50[i] * moreThan50[mod - i];
+            }
+
+            if (mod % 2 == 0)
+            {
+                res += (moreThan50[mod / 2] * (moreThan50[mod / 2] - 1)) / 2 + moreThan50[mod / 2] * lessOrEqualThan50[mod / 2];
+            }
+        }
+
+        static void Task27285()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+
+            int n = int.Parse(file.ReadLine());
+            int maxDiff = 0;
+            int L = 0;
+            int R = 0;
+
+            int[] rem = new int[80];
+            for (int i = 0; i < 80; i++)
+            {
+                rem[i] = 0;
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                int r = int.Parse(file.ReadLine());
+                int remainder = r % 80;
+                int l = rem[remainder];
+
+                int currentDiff = Math.Abs(l - r);
+                if (currentDiff > maxDiff && l != 0)
+                {
+                    maxDiff = currentDiff;
+                    L = l;
+                    R = r;
+                }
+                if (r > rem[remainder])
+                {
+                    rem[remainder] = r;
+                }
+            }
+            Console.WriteLine(R + " " + L);
+
+            file.Close();
+        }
+
+        static void Task9777()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+
+            int n = int.Parse(file.ReadLine());
+            int maxX = 0;
+            int maxY = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                string[] inp = file.ReadLine().Split();
+                int x = Math.Abs(int.Parse(inp[0]));
+                int y = Math.Abs(int.Parse(inp[1]));
+
+                if (x > maxX && y == 0)
+                {
+                    maxX = x;
+                }
+                else if (y > maxY && x == 0)
+                {
+                    maxY = y;   
+                }
+            }
+
+            int S = maxX * maxY / 2;
+            if (S != 0)
+            {
+                Console.WriteLine(S);
+            }
+            else
+            {
+                Console.WriteLine("треугольника не существует");
+            }
+
+            file.Close();
+        }
+
+        static void Task9813()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+
+            int n = int.Parse(file.ReadLine());
+            int minX = 0;
+            int minY = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                string[] inp = file.ReadLine().Split();
+                int x = Math.Abs(int.Parse(inp[0]));
+                int y = Math.Abs(int.Parse(inp[1]));
+
+                if (x < minX && y == 0)
+                {
+                    minX = x;
+                }
+                else if (y < minY && x == 0)
+                {
+                    minY = y;
+                }
+            }
+
+            int S = minX * minY / 2;
+            if (S != 0)
+            {
+                Console.WriteLine(S);
+            }
+            else
+            {
+                Console.WriteLine("треугольника не существует");
+            }
+            file.Close();
+        }
+
+        static void Task4862()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+
+            int n = int.Parse(file.ReadLine());
+            int[,] parameters = new int[2, 3];
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 1; j < 3; j++)
+                {
+                    parameters[i, j] = 0;
+                }
+            }
+
+            parameters[0, 0] = int.MaxValue;
+            parameters[1, 0] = int.MaxValue;
+
+            for (int i = 0; i < n; i++)
+            {
+                string[] inp = file.ReadLine().Split();
+                int x = int.Parse(inp[0]);
+                int y = int.Parse(inp[1]);
+                int pos = y > 0 ? 0 : 1;
+
+                x = Math.Abs(x);
+                y = Math.Abs(y);
+
+                if (x == 0)
+                {
+                    if (parameters[pos,0]==int.MaxValue)
+                    {
+                        parameters[pos, 0] = y;
+                    }
+
+                    if (y > parameters[pos, 1])
+                    {
+                        parameters[pos, 1] = y;
+                    }
+                    else if (y < parameters[pos, 0])
+                    {
+                        parameters[pos, 0] = y;
+                    }
+                }
+                else if (x != 0 && y != 0 && x > parameters[pos, 2])
+                {
+                    parameters[pos, 2] = x;
+                }
+            }
+
+            int a0 = parameters[0, 1] - parameters[0, 0];
+            int a1 = parameters[1, 1] - parameters[1, 0];
+
+            double s0 = (a0 * parameters[0, 2]);
+            double s1 = (a1 * parameters[1, 2]);
+
+            double s = s0 > s1 ? s0/2 : s1/2;
+
+            Console.WriteLine("{0:f}", s);
+
+            file.Close();
+        }
+
+        static void Task5258()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+
+            int n = int.Parse(file.ReadLine());
+
+            int[] quarters = { 0, 0, 0, 0 };
+            int[,] points = new int[2, 4];
+
+            int k = 0;
+            int M = 0;
+            int R = 0;
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    points[i, j] = 0;
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                string[] inp = file.ReadLine().Split();
+                int x = int.Parse(inp[0]);
+                int y = int.Parse(inp[1]);
+                int q = 0;
+
+                if (x > 0 && y > 0)
+                {
+                    q = 0;
+                    quarters[q]++;
+                }
+                else if (x > 0 && y < 0)
+                {
+                    q = 1;
+                    quarters[q]++;
+                }
+                else if (x < 0 && y < 0)
+                {
+                    q = 2;
+                    quarters[q]++;
+                }
+                else if (x < 0 && y > 0)
+                {
+                    q = 3;
+                    quarters[q]++;
+                }
+
+                if (x < points[0, q] || y < points[1, q])
+                {
+                    points[0, q] = x;
+                    points[1, q] = y;
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                int r = Math.Abs(points[0, i]) < Math.Abs(points[1, i]) ? Math.Abs(points[0, i]) : Math.Abs(points[1, i]);
+
+                if (quarters[i] >= M && R != r)
+                {
+                    k = i + 1;
+                    R = r;
+                    M = quarters[i];
+                }
+                else if (quarters[i] == M && R == r)
+                {
+                    k = k < i + 1 ? k : i + 1;
+                }
+            }
+            
+            Console.WriteLine("k = " + k);
+            Console.WriteLine("M = " + M);
+            Console.WriteLine("A (" + points[0, k - 1] + "; " + points[1, k - 1] + ")");
+            Console.WriteLine("R = " + R);
 
             file.Close();
         }
 
         static void Main(string[] args)
         {
-            Task9662();
+            Task5258();
+            /*
+            int mod = 4;
+            int[] r = new int[mod];
+            r[0] = 0;
+            r[1] = 0;
+            r[2] = 2;
+            r[3] = 0;
+            // 2 6
+
+            int ans = (r[0] * (r[0] - 1)) / 2;
+
+            for (int i = 1; i < mod/2; i++)
+            {
+                ans += r[i] * r[mod - i];
+            }
+
+            if (mod % 2 == 0)
+            {
+                ans += r[mod / 2] * (r[mod / 2] - 1) / 2;
+            }
+
+            Console.WriteLine(ans);
+            */
         }
     }
 }
