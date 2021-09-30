@@ -6,7 +6,7 @@ namespace _27ege
 {
     class Program
     {
-        static void Task27891()
+        public static void Task27891()
         {
             var file = new StreamReader("27.txt");
 
@@ -3258,47 +3258,59 @@ namespace _27ege
 
         class PositionAndNumber
         {
-            public int sum = 0;
+            public int sum = -1;
             public int length = 0;
         }
 
         static void Task37162Repeat()
         {
             var file = new StreamReader("..\\..\\..\\27.txt");
-            int mod = 89;
+            int mod = 50;
             PositionAndNumber[] remainders = new PositionAndNumber[mod];
 
-            for (int i = 0; i < 89; i++)
+            for (int i = 0; i < mod; i++)
             {
                 remainders[i] = new PositionAndNumber();
             }
 
-            int length = int.Parse(file.ReadLine());
-            int sum = 0;
-            int l = 0;
-            int max = 0;
+            int n = int.Parse(file.ReadLine());
 
-            for (int i = 0; i < length; i++)
+            int maxSum = 0;
+            int sum = 0;
+            int minLength = 68001;
+
+            for (int i = 0; i < n; i++)
             {
                 int a = int.Parse(file.ReadLine());
                 sum += a;
-                int rem = sum % 89;
-                if (remainders[rem].sum == 0 && rem != 0)
+                int rem = sum % mod;
+
+                if (remainders[rem].sum == -1 && rem != 0)
                 {
                     remainders[rem].sum = sum;
-                    remainders[rem].length = i;
-                    l++;
+                    remainders[rem].length = i + 1;
                 }
                 else
                 {
+                    int probMax = sum - remainders[rem].sum;
+                    int probLength = i - remainders[rem].length + 1;
 
+                    if (probMax > maxSum)
+                    {
+                        maxSum = probMax;
+                        minLength = probLength;
+                    }
+                    else if (probMax == maxSum)
+                    {
+                        if (probLength < minLength)
+                        {
+                            minLength = probLength;
+                        }
+                    }
                 }
             }
 
-            l -= remainders[sum % 89].length;
-            sum -= remainders[sum % 89].sum;
-
-            Console.WriteLine(l + " " + sum);
+            Console.WriteLine(minLength + " " + maxSum);
 
             file.Close();
         }
@@ -3330,10 +3342,29 @@ namespace _27ege
             file.Close();
         }
 
-        static void Main(string[] args)
+        static void NeMain(string[] args)
         {
-            Task69();
             
         }
+    }
+}
+
+namespace Haha
+{
+    static class test
+    {
+        public static int n = 20;
+        public static void f()
+        {
+            _27ege.Program.Task27891();
+        }
+    }
+}
+
+class a
+{
+    void f()
+    {
+        _27ege.Program.Task27891();
     }
 }
