@@ -9,11 +9,11 @@ namespace _27ege
 {
     class KEGE1080
     {
-        static int maxValue = 100000000;
+        public static int maxValue = 100000000;
 
-        static int fundament = 9;
+        public static int fundament = 9;
 
-        static int sequencelength = 4;
+        public static int sequencelength = 4;
 
         static string ArrayTostring(int[] arr)
         {
@@ -62,6 +62,7 @@ namespace _27ege
                     ++arr[i - 1];
                 }
             }
+
         }
 
         static void fillingTheArray(ref int[,] minimums)
@@ -107,7 +108,7 @@ namespace _27ege
             }
         }
 
-        static void PrintArray(int[,] arr, int n = 4, int k = 9)
+        public static void PrintArray(int[,] arr, int n, int k)
         {
             for (int i = 0; i < n; i++)
             {
@@ -157,13 +158,14 @@ namespace _27ege
 
             for (int[] arr = new int[sequencelength]; !TheEndMan(arr); IncreaseArray(ref arr))
             {
-                if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0 && arr[3] == 0)
-                {
-                    Console.WriteLine();
-                }            
-                
                 int sum = 0;
                 bool appropriate = true;
+
+                foreach (var item in arr)
+                {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
 
                 foreach (var element in MinMap(arr))
                 {
@@ -192,9 +194,10 @@ namespace _27ege
             Console.WriteLine(min);
         }
 
-        static void Main(string[] args)
-        {
-            Task1080();
-        }
     }
+
 }
+
+
+
+

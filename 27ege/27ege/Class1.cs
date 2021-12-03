@@ -1,34 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace _27ege
 {
-    class Program
+    class Class1
     {
-        static void Main(string[] args)
-        {
-            var st = new SegmentTree(new int[] { 3, 4, 1, 2, 5, 7, 6 });
-
-        }
-
-        public static int Task1(int n)
-        {
-            if (n <= 1)
-            {
-                return 0;
-            }
-            else if (n % 2 != 0)
-            {
-                return Task1(n - 1) + 3 * n * n;
-            }
-            else
-            {
-                return n / 2 + Task1(n - 1) + 2;
-            }
-        }
-
         public static void Task27891()
         {
             var file = new StreamReader("27.txt");
@@ -1733,7 +1713,7 @@ namespace _27ege
                     count++;
                     if (a < minEl)
                     {
-                        minEl = a;  
+                        minEl = a;
                     }
                 }
             }
@@ -1781,7 +1761,7 @@ namespace _27ege
 
             file.Close();
         }
-        
+
         static void Task7772()
         {
             var file = new StreamReader("..\\..\\..\\27.txt");
@@ -1899,7 +1879,7 @@ namespace _27ege
 
             for (int i = 0; i < 6; i++)
             {
-                buffer[i] = int.Parse(file.ReadLine()); 
+                buffer[i] = int.Parse(file.ReadLine());
             }
 
             int answer = 0;
@@ -1909,7 +1889,7 @@ namespace _27ege
                 int x = int.Parse(file.ReadLine());
 
                 ++n[Charachteristic(buffer[0])];
-                
+
                 switch (Charachteristic(x))
                 {
                     case 6:
@@ -1942,7 +1922,7 @@ namespace _27ege
 
                 maxSum += a > b ? a : b;
 
-                if (Math.Abs(a - b) < minDiff && Math.Abs(a - b) % 3 != 0)  
+                if (Math.Abs(a - b) < minDiff && Math.Abs(a - b) % 3 != 0)
                 {
                     minDiff = Math.Abs(a - b);
                 }
@@ -2149,7 +2129,7 @@ namespace _27ege
             }
 
             Console.WriteLine(maxLength);
-            
+
             file.Close();
         }
 
@@ -2172,7 +2152,7 @@ namespace _27ege
                     }
                     else if (line[i] == 'E')
                     {
-                        amountE++;  
+                        amountE++;
                     }
                 }
 
@@ -2199,7 +2179,7 @@ namespace _27ege
 
             for (int i = 0; i < 26; i++)
             {
-                freq[i] = 0;    
+                freq[i] = 0;
             }
 
             while (!file.EndOfStream)
@@ -2222,7 +2202,7 @@ namespace _27ege
                 if (freq[i] > maxFreq)
                 {
                     maxFreq = freq[i];
-                    res_i = i; 
+                    res_i = i;
                 }
             }
 
@@ -2300,9 +2280,9 @@ namespace _27ege
                         amount++;
                     }
 
-                    alphabet[line[i] - 'A']++; 
+                    alphabet[line[i] - 'A']++;
                 }
-                
+
                 if (amount < minAmount)
                 {
                     for (int i = 0; i < 26; i++)
@@ -2318,7 +2298,7 @@ namespace _27ege
 
                 for (int i = 0; i < 26; i++)
                 {
-                    alphabet[i] = 0;    
+                    alphabet[i] = 0;
                 }
             }
 
@@ -2403,7 +2383,7 @@ namespace _27ege
                 {
                     sum = sum + arr[i] - maxi;
                     maxi = arr[i];
-                }                    
+                }
 
             }
 
@@ -2438,17 +2418,17 @@ namespace _27ege
 
             moreThan50.Sort();
 
-            for (int i = 0; i < moreThan50.Count/2; i++)
+            for (int i = 0; i < moreThan50.Count / 2; i++)
             {
                 sum += moreThan50[i] * 0.75;
 
-                if (moreThan50[i]>maxCost)
+                if (moreThan50[i] > maxCost)
                 {
                     maxCost = moreThan50[i];
                 }
             }
 
-            for (int i = moreThan50.Count/2; i < moreThan50.Count; i++)
+            for (int i = moreThan50.Count / 2; i < moreThan50.Count; i++)
             {
                 sum += moreThan50[i];
             }
@@ -2657,7 +2637,7 @@ namespace _27ege
         }
 
         static bool Search(int a, List<int> numbers, int firstEl, int lastEl)
-        {            
+        {
             if (firstEl == lastEl)
             {
                 return a == numbers[firstEl];
@@ -2719,7 +2699,7 @@ namespace _27ege
                         count++;
                         if (average > maxAverage)
                         {
-                            maxAverage = average;   
+                            maxAverage = average;
                         }
                     }
                 }
@@ -2773,9 +2753,9 @@ namespace _27ege
             return resultArray;
         }
 
-        static void twoArrays(int[]array)
+        static void twoArrays(int[] array)
         {
-            
+
         }
 
         static void MergeSort(ref int[] array)
@@ -2895,7 +2875,7 @@ namespace _27ege
                 {
                     if (count > maxCount)
                     {
-                        maxCount = count;   
+                        maxCount = count;
                     }
 
                     if (symbol == 'K')
@@ -2975,7 +2955,7 @@ namespace _27ege
             var s = "";
             int max = 0;
 
-            while(!file.EndOfStream)
+            while (!file.EndOfStream)
             {
                 char c = Convert.ToChar(file.Read());
                 if (char.IsDigit(c))
@@ -3016,7 +2996,7 @@ namespace _27ege
                     condition = true;
                     if (count == 4)
                     {
-                        words_count++;                    
+                        words_count++;
                         count = 0;
                     }
                     else
@@ -3030,7 +3010,7 @@ namespace _27ege
                     {
                         count++;
                     }
-                    
+
                 }
             }
 
@@ -3365,26 +3345,6 @@ namespace _27ege
             file.Close();
         }
 
-        
-    }
-}
 
-namespace Haha
-{
-    static class test
-    {
-        public static int n = 20;
-        public static void f()
-        {
-            _27ege.Program.Task27891();
-        }
-    }
-}
-
-class a
-{
-    void f()
-    {
-        _27ege.Program.Task27891();
     }
 }
