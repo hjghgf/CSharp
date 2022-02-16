@@ -9,6 +9,166 @@ namespace _27ege
 {
     class Class1
     {
+        
+        public static void Task17()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int maxDiff = 0;
+            int count = 0;
+            int[] arr = new int[10000];
+
+            for (int i = 0; i < 10000; i++)
+            {
+                int a = int.Parse(file.ReadLine());
+                arr[i] = a;
+            }
+
+            for (int i = 0; i < 10000; i++)
+            {
+                for (int j = i + 1; j < 10000; j++)
+                {
+                    int diff = Math.Abs(arr[i] - arr[j]);
+                    if (diff % 80 == 0)
+                    {
+                        count++;
+                        if (diff > maxDiff)
+                        {
+                            maxDiff = diff;
+                        }
+                    }
+                    
+                }
+            }
+            Console.WriteLine(maxDiff + " " + count);
+            file.Close();
+        }
+
+        public static void Task24()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            int maxL = 0;
+            int l = 0;
+
+            while (!file.EndOfStream)
+            {
+                int s = file.Read();
+                if (s == 'D')
+                {
+                    l++;
+                }
+                else
+                {
+                    if (l > maxL)
+                    {
+                        maxL = l;
+                    }                       
+                    
+                    l = 0;
+                }
+            }
+
+            Console.WriteLine(maxL);
+
+            file.Close();
+        }
+
+        public static void Task25()
+        {
+            //Найдите все натуральные числа N, принадлежащие отрезку[200 000 000; 400 000 000], 
+            //    которые можно представить в виде N = 2^m · 3^n, где m — чётное число, n — нечётное число. 
+            //    В ответе запишите все найденные числа в порядке возрастания.
+
+            for (int m = 0; m <= 30; m++)
+            {
+                for (int n = 0; n < 30; n++)
+                {
+                    if (n % 2 != 0 && m % 2 == 0)
+                    {
+                        double numb = Math.Pow(2, m) * Math.Pow(3, n);
+                        if (numb > 200000000 && numb < 400000000)
+                        {
+                            Console.WriteLine(numb);    
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void Task26()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+            string[] inp = file.ReadLine().Split();
+            int s = int.Parse(inp[0]);
+            int n = int.Parse(inp[1]);
+            int[] arr = new int[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = int.Parse(file.ReadLine());
+            }
+
+            Sorting(ref arr);
+            int maxI = 0;
+            int sum = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (sum + arr[i] <= s)
+                {
+                    sum += arr[i];
+                    maxI = i;
+                }
+            }
+
+            int temp = arr[maxI];
+
+            for (int i = maxI; i < n; i++)
+            {
+                if (sum - temp + arr[i] <= s)
+                {
+                    sum = sum - temp + arr[i];
+                    temp = arr[i];
+                }
+            }
+
+            Console.WriteLine(maxI + " " + temp);
+
+            file.Close();
+        }
+
+        public static void Task27()
+        {
+            var file = new StreamReader("..\\..\\..\\27.txt");
+
+            int max7 = 0;
+            int max = 0;
+            int a = int.Parse(file.ReadLine());
+            while (a != 0)
+            {
+                if (a > max7 && a % 7 == 0 && a % 49 != 0)
+                {
+                    max7 = a;
+                }
+                else if (a > max && a % 7 != 0)
+                {
+                    max = a;
+                }
+                a = int.Parse(file.ReadLine());
+            }
+            int maxComp = max * max7;
+            if (maxComp != 0)
+            {
+                Console.WriteLine(maxComp);
+            }
+            else
+            {
+                Console.WriteLine("1");
+            }
+
+            file.Close();
+
+        }
+
         public static void Task27891()
         {
             var file = new StreamReader("27.txt");
@@ -97,7 +257,7 @@ namespace _27ege
             file.Close();
         }
 
-        static void Task27986()
+        public static void Task27986()
         {
             var file = new StreamReader("27.txt");
 
@@ -341,7 +501,7 @@ namespace _27ege
             file.Close();
         }
 
-        static void Sorting(ref int[] mas)
+        public static void Sorting(ref int[] mas)
         {
             for (int i = 0; i < mas.Length - 1; i++)
             {

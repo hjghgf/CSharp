@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace _27ege
 {
     class SegmentTree
     {
-        class Node
+        public class Node
         {
             public int sum;
             public int left;
@@ -16,6 +17,20 @@ namespace _27ege
             public Node leftChild = null;
             public Node rightChild = null;
             public Node parent = null;
+
+            public int SumSegment(int l, int r)
+            {
+                if (r < left || right < l)
+                {
+                    return 0;
+                }
+                if (l <= left &&  r >= right)
+                {
+                    return sum;
+                }
+
+                return leftChild.SumSegment(l, r) + rightChild.SumSegment(l, r);
+            }
         }
 
         List<Node> leafs;
@@ -64,25 +79,12 @@ namespace _27ege
                 node.sum = node.leftChild.sum + node.rightChild.sum;
                 node = node.parent;
             }
+            node.sum = node.leftChild.sum + node.rightChild.sum;
         }
 
-        //public void QueryNum(int index, Node node)
-        //{
-        //    if (index > node.leftChild.left && index < node.leftChild.right)
-        //    {
-        //        node = node.leftChild;
-        //        QueryNum(index, node);
-        //    }
-
-        //    else if (index > node.rightChild.left && index < node.rightChild.right)
-        //    {
-
-        //    }
-        //}
-
-        public void QuerySum(int index1, int index2)
+        public int SumSegment(int index1, int index2)
         {
-
+            return root.SumSegment(index1, index2); 
         }
     }
 }
